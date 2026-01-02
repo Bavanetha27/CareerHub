@@ -157,7 +157,7 @@ Your support motivates us to keep improving the platform and adding more feature
 
 
 
-If you want it shorter, more professional, or more friendly, tell me and I’ll tweak it.
+
 
 ## 📄 License
 
