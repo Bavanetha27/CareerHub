@@ -14,6 +14,7 @@ export default function Footer() {
           {/* BRAND */}
           <div className="max-w-xs md:pl-10">
             <div className="flex items-center justify-center md:justify-start gap-2 mb-4">
+              {/* Logo box */}
               <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center">
                 <span className="text-primary-foreground font-bold">C</span>
               </div>
@@ -60,7 +61,7 @@ export default function Footer() {
         {/* BOTTOM BAR */}
         <div className="mt-12 pt-8 border-t border-border flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
           <p className="text-sm text-muted-foreground">
-            © 2025 CareerHub. All rights reserved.
+            © {new Date().getFullYear()} CareerHub. All rights reserved.
           </p>
 
           <div className="flex items-center gap-5">
