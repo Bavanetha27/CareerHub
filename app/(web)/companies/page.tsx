@@ -6,7 +6,6 @@ import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
 import { Search, Building, Filter, Star } from "lucide-react";
-import Footer from "@/components/footer";
 import CompanyCard from "@/components/company-card";
 import { CompanyProfile, CompanyDataManager } from "@/lib/company-data";
 
@@ -79,7 +78,6 @@ export default function CompaniesPage() {
             </div>
           </div>
         </div>
-        <Footer />
       </div>
     );
   }
@@ -232,7 +230,6 @@ export default function CompaniesPage() {
         </div>
       </main>
 
-      <Footer />
     </div>
   );
 }

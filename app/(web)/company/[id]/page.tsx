@@ -7,11 +7,11 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Progress } from "@/components/ui/progress";
-import { 
-  Building, 
-  MapPin, 
-  Users, 
-  Star, 
+import {
+  Building,
+  MapPin,
+  Users,
+  Star,
   ExternalLink,
   Calendar,
   Briefcase,
@@ -23,15 +23,14 @@ import {
   ArrowLeft
 } from "lucide-react";
 import Link from "next/link";
-import Header from "@/components/header";
 import Footer from "@/components/footer";
 import ReviewCard from "@/components/review-card";
 import ReviewForm from "@/components/review-form";
-import { 
-  CompanyProfile, 
-  CompanyReview, 
+import {
+  CompanyProfile,
+  CompanyReview,
   ReviewStats,
-  CompanyDataManager 
+  CompanyDataManager
 } from "@/lib/company-data";
 import { useToast } from "@/hooks/use-toast";
 
@@ -53,10 +52,10 @@ export default function CompanyProfilePage() {
 
   const loadCompanyData = () => {
     setIsLoading(true);
-    
+
     // Initialize sample data
     CompanyDataManager.initializeSampleData();
-    
+
     // Load company profile
     const companyData = CompanyDataManager.getCompanyById(companyId);
     setCompany(companyData);
@@ -65,7 +64,7 @@ export default function CompanyProfilePage() {
       // Load reviews and stats
       const companyReviews = CompanyDataManager.getCompanyReviews(companyId);
       const stats = CompanyDataManager.getReviewStats(companyId);
-      
+
       setReviews(companyReviews);
       setReviewStats(stats);
     }
@@ -94,13 +93,12 @@ export default function CompanyProfilePage() {
     return Array.from({ length: 5 }, (_, i) => (
       <Star
         key={i}
-        className={`w-5 h-5 ${
-          i < Math.floor(rating)
-            ? "fill-yellow-400 text-yellow-400"
-            : i < rating
+        className={`w-5 h-5 ${i < Math.floor(rating)
+          ? "fill-yellow-400 text-yellow-400"
+          : i < rating
             ? "fill-yellow-400/50 text-yellow-400"
             : "text-gray-300"
-        }`}
+          }`}
       />
     ));
   };
@@ -108,7 +106,6 @@ export default function CompanyProfilePage() {
   if (isLoading) {
     return (
       <div className="min-h-screen bg-background">
-        <Header />
         <div className="container mx-auto px-4 py-8">
           <div className="flex items-center justify-center min-h-[400px]">
             <div className="text-center space-y-4">
@@ -125,7 +122,6 @@ export default function CompanyProfilePage() {
   if (!company) {
     return (
       <div className="min-h-screen bg-background">
-        <Header />
         <div className="container mx-auto px-4 py-8">
           <div className="text-center py-12">
             <Building className="w-16 h-16 text-muted-foreground mx-auto mb-4" />
@@ -148,8 +144,7 @@ export default function CompanyProfilePage() {
 
   return (
     <div className="min-h-screen bg-background">
-      <Header />
-      
+
       <main className="container mx-auto px-4 py-8">
         {/* Back Button */}
         <div className="mb-6">
@@ -167,7 +162,7 @@ export default function CompanyProfilePage() {
             <div className="w-20 h-20 bg-gradient-to-br from-primary/20 to-primary/10 rounded-xl flex items-center justify-center">
               <Building className="w-10 h-10 text-primary" />
             </div>
-            
+
             <div className="flex-1 space-y-3">
               <div className="flex flex-col md:flex-row md:items-center md:space-x-4">
                 <h1 className="text-3xl font-bold">{company.companyName}</h1>
@@ -221,7 +216,7 @@ export default function CompanyProfilePage() {
               </div>
             </div>
 
-            <Button 
+            <Button
               onClick={() => setShowReviewForm(true)}
               className="glassmorphic-button-primary"
             >
@@ -344,8 +339,8 @@ export default function CompanyProfilePage() {
                           <div key={rating} className="flex items-center space-x-2">
                             <span className="text-sm w-3">{rating}</span>
                             <Star className="w-3 h-3 fill-yellow-400 text-yellow-400" />
-                            <Progress 
-                              value={(reviewStats.ratingDistribution[rating] / reviewStats.totalReviews) * 100} 
+                            <Progress
+                              value={(reviewStats.ratingDistribution[rating] / reviewStats.totalReviews) * 100}
                               className="flex-1 h-2"
                             />
                             <span className="text-xs text-muted-foreground w-8">
@@ -397,16 +392,16 @@ export default function CompanyProfilePage() {
                     <CardTitle>Quick Actions</CardTitle>
                   </CardHeader>
                   <CardContent className="space-y-3">
-                    <Button 
-                      variant="outline" 
+                    <Button
+                      variant="outline"
                       className="w-full justify-start"
                       onClick={() => setActiveTab("reviews")}
                     >
                       <MessageSquare className="w-4 h-4 mr-2" />
                       Read Reviews
                     </Button>
-                    <Button 
-                      variant="outline" 
+                    <Button
+                      variant="outline"
                       className="w-full justify-start"
                       onClick={() => setActiveTab("jobs")}
                     >
@@ -414,8 +409,8 @@ export default function CompanyProfilePage() {
                       View Jobs
                     </Button>
                     {company.website && (
-                      <Button 
-                        variant="outline" 
+                      <Button
+                        variant="outline"
                         className="w-full justify-start"
                         asChild
                       >
@@ -437,7 +432,7 @@ export default function CompanyProfilePage() {
               <h2 className="text-2xl font-semibold">
                 Employee Reviews ({reviews.length})
               </h2>
-              <Button 
+              <Button
                 onClick={() => setShowReviewForm(true)}
                 className="glassmorphic-button-primary"
               >
@@ -454,7 +449,7 @@ export default function CompanyProfilePage() {
                   <p className="text-muted-foreground mb-4">
                     Be the first to share your experience working at {company.companyName}
                   </p>
-                  <Button 
+                  <Button
                     onClick={() => setShowReviewForm(true)}
                     className="glassmorphic-button-primary"
                   >
@@ -499,7 +494,6 @@ export default function CompanyProfilePage() {
         </Tabs>
       </main>
 
-      <Footer />
     </div>
   );
 }

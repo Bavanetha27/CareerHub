@@ -1,5 +1,6 @@
 import type React from "react"
 import Headers from "@/components/header"
+import Footer from "@/components/footer"
 
 export default function PublicLayout({
     children,
@@ -10,6 +11,7 @@ export default function PublicLayout({
         <>
             <Headers />
             {children}
+            <Footer />
         </>
     )
 }

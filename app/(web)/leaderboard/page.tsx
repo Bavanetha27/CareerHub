@@ -19,7 +19,7 @@ const topPerformers = [
     specialty: "Full Stack"
   },
   {
-    rank: 2, 
+    rank: 2,
     name: "Alex Rodriguez",
     avatar: "/placeholder-user.jpg",
     score: 96,
@@ -30,7 +30,7 @@ const topPerformers = [
   {
     rank: 3,
     name: "Emily Johnson",
-    avatar: "/placeholder-user.jpg", 
+    avatar: "/placeholder-user.jpg",
     score: 94,
     assessments: 15,
     certificates: 9,
@@ -57,7 +57,7 @@ export default function LeaderboardPage() {
   return (
     <main className="bg-background min-h-screen">
       <Header />
-      
+
       {/* Hero Section */}
       <section className="py-20 px-4">
         <div className="max-w-7xl mx-auto text-center">
@@ -76,7 +76,7 @@ export default function LeaderboardPage() {
 
       <div className="max-w-7xl mx-auto px-4 pb-20">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          
+
           {/* Top Performers */}
           <div className="lg:col-span-2">
             <Card className="glassmorphic mb-8">
@@ -86,31 +86,31 @@ export default function LeaderboardPage() {
                   Top Performers
                 </CardTitle>
               </CardHeader>
-              
+
               <CardContent className="space-y-4">
                 {topPerformers.map((performer) => (
                   <div key={performer.rank} className="flex items-center gap-4 p-4 rounded-lg bg-muted/50">
                     <div className="flex items-center justify-center w-8 h-8 rounded-full bg-primary text-primary-foreground font-bold">
                       {performer.rank}
                     </div>
-                    
+
                     <Avatar className="w-12 h-12">
                       <AvatarImage src={performer.avatar} />
                       <AvatarFallback>{performer.name.split(' ').map(n => n[0]).join('')}</AvatarFallback>
                     </Avatar>
-                    
+
                     <div className="flex-1">
                       <div className="font-semibold">{performer.name}</div>
                       <div className="text-sm text-muted-foreground">{performer.specialty} Specialist</div>
                     </div>
-                    
+
                     <div className="text-right">
                       <div className="text-2xl font-bold text-primary">{performer.score}%</div>
                       <div className="text-xs text-muted-foreground">
                         {performer.certificates}/{performer.assessments} certified
                       </div>
                     </div>
-                    
+
                     {performer.rank <= 3 && (
                       <div className="ml-2">
                         {performer.rank === 1 && <Trophy className="w-6 h-6 text-yellow-500" />}
@@ -131,7 +131,7 @@ export default function LeaderboardPage() {
                   This Month's Leaders
                 </CardTitle>
               </CardHeader>
-              
+
               <CardContent className="space-y-3">
                 {monthlyLeaders.map((leader, index) => (
                   <div key={index} className="flex items-center justify-between p-3 rounded-lg bg-muted/30">
@@ -157,7 +157,7 @@ export default function LeaderboardPage() {
               <CardHeader>
                 <CardTitle>Achievements</CardTitle>
               </CardHeader>
-              
+
               <CardContent className="space-y-4">
                 {achievements.map((achievement, index) => {
                   const IconComponent = achievement.icon
@@ -180,18 +180,18 @@ export default function LeaderboardPage() {
               <CardHeader>
                 <CardTitle>Global Stats</CardTitle>
               </CardHeader>
-              
+
               <CardContent className="space-y-4">
                 <div className="text-center p-4 rounded-lg bg-muted/30">
                   <div className="text-2xl font-bold text-primary">50,247</div>
                   <div className="text-sm text-muted-foreground">Total Assessments Taken</div>
                 </div>
-                
+
                 <div className="text-center p-4 rounded-lg bg-muted/30">
                   <div className="text-2xl font-bold text-primary">32,156</div>
                   <div className="text-sm text-muted-foreground">Certificates Issued</div>
                 </div>
-                
+
                 <div className="text-center p-4 rounded-lg bg-muted/30">
                   <div className="text-2xl font-bold text-primary">78%</div>
                   <div className="text-sm text-muted-foreground">Average Pass Rate</div>
@@ -201,8 +201,7 @@ export default function LeaderboardPage() {
           </div>
         </div>
       </div>
-      
-      <Footer />
+
     </main>
   )
 }

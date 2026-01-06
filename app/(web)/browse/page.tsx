@@ -6,8 +6,6 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Search, Briefcase, GraduationCap, Users, MapPin, Clock, DollarSign, Building } from "lucide-react";
 import Link from "next/link";
-import Header from "@/components/header";
-import Footer from "@/components/footer";
 import { CompanyDataManager } from "@/lib/company-data";
 import { OpportunityService } from "@/lib/services/opportunities";
 import BookmarkButton from "@/components/bookmark-button";
@@ -51,10 +49,34 @@ const BrowsePage = () => {
   useEffect(() => {
     // Initialize company data
     CompanyDataManager.initializeSampleData();
-    
     // Get all opportunities from the service
     const opportunities = OpportunityService.getAllOpportunities();
     setAllOpportunities(opportunities);
+
+    // Get company posted jobs from localStorage
+    const companyPostedJobs: Opportunity[] = [];
+    const savedJobs = localStorage.getItem("postedJobs");
+    if (savedJobs) {
+      try {
+        const parsedJobs = JSON.parse(savedJobs);
+        const formattedJobs: Opportunity[] = parsedJobs.map((job: any) => ({
+          id: job.id,
+          title: job.title,
+          company: job.company,
+          type: job.type,
+          location: job.location,
+          salary: job.salary,
+          description: job.description,
+          tags: job.requirements || [],
+        }));
+        companyPostedJobs.push(...formattedJobs);
+      } catch (error) {
+        console.error("Error parsing company jobs:", error);
+      }
+    }
+
+    // Only use company posted jobs (no mock opportunities)
+    setAllOpportunities(companyPostedJobs);
     setIsLoading(false);
   }, []);
 
@@ -93,21 +115,18 @@ const BrowsePage = () => {
   if (isLoading) {
     return (
       <main className="min-h-screen bg-background">
-        <Header />
         <div className="flex items-center justify-center min-h-[60vh]">
           <div className="text-center">
             <div className="inline-block animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-foreground mb-4"></div>
             <p className="text-foreground">Loading opportunities...</p>
           </div>
         </div>
-        <Footer />
       </main>
     );
   }
 
   return (
     <main className="min-h-screen bg-background">
-      <Header />
 
       <div className="py-8 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
@@ -127,7 +146,7 @@ const BrowsePage = () => {
             <div className="mb-6">
               <BookmarkStatus />
             </div>
-            
+
             <div className="glassmorphic p-6 rounded-2xl border-foreground/10">
               <div className="flex flex-col md:flex-row gap-4">
                 <div className="flex-1 relative">
@@ -335,7 +354,6 @@ const BrowsePage = () => {
         </div>
       </div>
 
-      <Footer />
     </main>
   );
 };

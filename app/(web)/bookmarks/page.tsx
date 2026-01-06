@@ -6,12 +6,12 @@ import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { 
-  Search, 
-  Heart, 
-  Briefcase, 
-  GraduationCap, 
-  Building, 
+import {
+  Search,
+  Heart,
+  Briefcase,
+  GraduationCap,
+  Building,
   Filter,
   Download,
   Upload,
@@ -20,14 +20,12 @@ import {
   BookOpen,
   Star
 } from "lucide-react";
-import Header from "@/components/header";
-import Footer from "@/components/footer";
 import BookmarkCard from "@/components/bookmark-card";
 import BackupManager from "@/components/backup-manager";
-import { 
-  BookmarkedOpportunity, 
+import {
+  BookmarkedOpportunity,
   BookmarkStats,
-  BookmarkManager 
+  BookmarkManager
 } from "@/lib/bookmark-data";
 import { useToast } from "@/hooks/use-toast";
 import Link from "next/link";
@@ -54,7 +52,7 @@ export default function BookmarksPage() {
     setIsLoading(true);
     const allBookmarks = BookmarkManager.getBookmarks();
     const bookmarkStats = BookmarkManager.getBookmarkStats();
-    
+
     setBookmarks(allBookmarks);
     setStats(bookmarkStats);
     setIsLoading(false);
@@ -107,7 +105,7 @@ export default function BookmarksPage() {
       a.click();
       document.body.removeChild(a);
       URL.revokeObjectURL(url);
-      
+
       toast({
         title: "Bookmarks Exported",
         description: "Your bookmarks have been downloaded as a JSON file.",
@@ -144,7 +142,7 @@ export default function BookmarksPage() {
       }
     };
     reader.readAsText(file);
-    
+
     // Reset input
     event.target.value = '';
   };
@@ -162,7 +160,6 @@ export default function BookmarksPage() {
   if (isLoading) {
     return (
       <div className="min-h-screen bg-background">
-        <Header />
         <div className="container mx-auto px-4 py-8">
           <div className="flex items-center justify-center min-h-[400px]">
             <div className="text-center space-y-4">
@@ -171,15 +168,13 @@ export default function BookmarksPage() {
             </div>
           </div>
         </div>
-        <Footer />
       </div>
     );
   }
 
   return (
     <div className="min-h-screen bg-background">
-      <Header />
-      
+
       <main className="container mx-auto px-4 py-8">
         {/* Hero Section */}
         <div className="text-center space-y-4 mb-8">
@@ -252,7 +247,7 @@ export default function BookmarksPage() {
                 <Download className="w-4 h-4 mr-2" />
                 Export
               </Button>
-              
+
               <label className="cursor-pointer">
                 <Button variant="outline" size="sm" asChild>
                   <span>
@@ -269,8 +264,8 @@ export default function BookmarksPage() {
               </label>
 
               {bookmarks.length > 0 && (
-                <Button 
-                  variant="outline" 
+                <Button
+                  variant="outline"
                   onClick={handleClearAll}
                   size="sm"
                   className="text-red-500 hover:text-red-700 hover:bg-red-50 dark:hover:bg-red-950/20"
@@ -318,7 +313,7 @@ export default function BookmarksPage() {
                     {searchQuery ? "No bookmarks found" : "No bookmarks yet"}
                   </h3>
                   <p className="text-muted-foreground mb-4">
-                    {searchQuery 
+                    {searchQuery
                       ? "Try adjusting your search criteria"
                       : `Start saving ${activeTab === "all" ? "opportunities" : activeTab + "s"} to see them here`
                     }
@@ -366,8 +361,6 @@ export default function BookmarksPage() {
           </TabsContent>
         </Tabs>
       </main>
-
-      <Footer />
     </div>
   );
 }

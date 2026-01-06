@@ -70,7 +70,7 @@ export default function ProfilePage() {
   return (
     <main className="min-h-screen bg-background">
       <Header />
-      
+
       <div className="py-8 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto">
           {/* Profile Header */}
@@ -89,14 +89,14 @@ export default function ProfilePage() {
                   </div>
                 )}
               </div>
-              
+
               <div className="flex-1 text-center md:text-left">
                 <h1 className="text-2xl font-bold text-foreground">{user.fullName}</h1>
                 <div className="flex items-center justify-center md:justify-start gap-2 text-muted-foreground mt-1">
                   <Mail className="w-4 h-4" />
                   <span>{user.email}</span>
                 </div>
-                
+
                 <div className="flex flex-wrap gap-2 mt-4 justify-center md:justify-start">
                   <Badge variant="secondary" className="flex items-center gap-1">
                     <Briefcase className="w-3 h-3" />
@@ -104,7 +104,7 @@ export default function ProfilePage() {
                   </Badge>
                 </div>
               </div>
-              
+
               <div>
                 <Link href="/profile/edit">
                   <Button className="flex items-center gap-2 glassmorphic-button-primary">
@@ -160,8 +160,7 @@ export default function ProfilePage() {
           </div>
         </div>
       </div>
-      
-      <Footer />
+
     </main>
   );
 }

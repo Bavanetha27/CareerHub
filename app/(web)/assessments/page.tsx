@@ -9,8 +9,7 @@ import { Trophy, Users, Award } from "lucide-react"
 export default function AssessmentsPage() {
   return (
     <main className="bg-background min-h-screen">
-      <Header />
-      
+
       {/* Hero Section */}
       <section className="py-20 px-4">
         <div className="max-w-7xl mx-auto text-center">
@@ -24,7 +23,7 @@ export default function AssessmentsPage() {
           <p className="text-xl text-muted-foreground mb-8 max-w-3xl mx-auto">
             Take industry-standard assessments and earn certificates that boost your job applications
           </p>
-          
+
           {/* Stats */}
           <div className="flex justify-center gap-8 mb-12">
             <div className="text-center">
@@ -45,8 +44,7 @@ export default function AssessmentsPage() {
 
       {/* Assessment Grid */}
       <AssessmentGrid />
-      
-      <Footer />
+
     </main>
   )
 }

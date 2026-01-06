@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from "react"
 import { useParams, useRouter } from "next/navigation"
-import Header from "@/components/header"
 import Footer from "@/components/footer"
 import QuizInterface from "@/components/quiz-interface"
 import AssessmentResults from "@/components/assessment-results"
@@ -23,7 +22,7 @@ const assessmentData = {
     difficulty: "Intermediate"
   },
   backend: {
-    title: "Backend Development Assessment", 
+    title: "Backend Development Assessment",
     description: "Evaluate your Node.js, Python, and API design knowledge",
     duration: 35,
     questions: 30,
@@ -62,14 +61,13 @@ export default function AssessmentPage() {
   const [quizStarted, setQuizStarted] = useState(false)
   const [quizCompleted, setQuizCompleted] = useState(false)
   const [results, setResults] = useState(null)
-  
+
   const assessmentId = params.id as string
   const assessment = assessmentData[assessmentId as keyof typeof assessmentData]
 
   if (!assessment) {
     return (
       <main className="bg-background min-h-screen">
-        <Header />
         <div className="py-20 px-4 text-center">
           <h1 className="text-2xl font-bold mb-4">Assessment Not Found</h1>
           <Link href="/assessments">
@@ -89,9 +87,8 @@ export default function AssessmentPage() {
   if (quizCompleted && results) {
     return (
       <main className="bg-background min-h-screen">
-        <Header />
-        <AssessmentResults 
-          results={results} 
+        <AssessmentResults
+          results={results}
           assessment={assessment}
           assessmentId={assessmentId}
         />
@@ -103,8 +100,7 @@ export default function AssessmentPage() {
   if (quizStarted) {
     return (
       <main className="bg-background min-h-screen">
-        <Header />
-        <QuizInterface 
+        <QuizInterface
           assessmentId={assessmentId}
           assessment={assessment}
           onComplete={handleQuizComplete}
@@ -116,8 +112,7 @@ export default function AssessmentPage() {
 
   return (
     <main className="bg-background min-h-screen">
-      <Header />
-      
+
       <section className="py-20 px-4">
         <div className="max-w-4xl mx-auto">
           {/* Back Button */}
@@ -137,7 +132,7 @@ export default function AssessmentPage() {
               <CardTitle className="text-3xl mb-2">{assessment.title}</CardTitle>
               <CardDescription className="text-lg">{assessment.description}</CardDescription>
             </CardHeader>
-            
+
             <CardContent className="space-y-6">
               {/* Assessment Stats */}
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -177,7 +172,7 @@ export default function AssessmentPage() {
               </div>
 
               {/* Start Button */}
-              <Button 
+              <Button
                 onClick={() => setQuizStarted(true)}
                 className="w-full glassmorphic-button-primary text-lg py-6"
               >
@@ -187,8 +182,7 @@ export default function AssessmentPage() {
           </Card>
         </div>
       </section>
-      
-      <Footer />
+
     </main>
   )
 }

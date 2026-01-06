@@ -109,13 +109,13 @@ export default function EditProfilePage() {
         alert('Please upload a PDF, DOC, or DOCX file');
         return;
       }
-      
+
       // Check file size (max 5MB)
       if (file.size > 5 * 1024 * 1024) {
         alert('File size should be less than 5MB');
         return;
       }
-      
+
       const reader = new FileReader();
       reader.onloadend = () => {
         setPreviewResume(reader.result as string);
@@ -148,7 +148,7 @@ export default function EditProfilePage() {
         skills: formData.skills,
         interests: formData.interests,
       };
-      
+
       localStorage.setItem("userProfile", JSON.stringify(profileData));
 
       // Update user data
@@ -182,7 +182,7 @@ export default function EditProfilePage() {
   return (
     <main className="min-h-screen bg-background">
       <Header />
-      
+
       <div className="py-8 px-4 sm:px-6 lg:px-8">
         <div className="max-w-3xl mx-auto">
           <Card className="glassmorphic">
@@ -192,7 +192,7 @@ export default function EditProfilePage() {
                 Edit Profile
               </CardTitle>
             </CardHeader>
-            
+
             <CardContent>
               <form onSubmit={handleSubmit} className="space-y-6">
                 {/* Profile Image Section */}
@@ -219,7 +219,7 @@ export default function EditProfilePage() {
                       </div>
                     )}
                   </div>
-                  
+
                   <div className="flex flex-col sm:flex-row gap-2 w-full max-w-md">
                     <Input
                       id="profileImage"
@@ -248,7 +248,7 @@ export default function EditProfilePage() {
                     )}
                   </div>
                 </div>
-                                
+
                 {/* Resume Upload Section */}
                 <div className="space-y-2">
                   <Label htmlFor="resume">Resume</Label>
@@ -279,7 +279,7 @@ export default function EditProfilePage() {
                     Accepted formats: PDF, DOC, DOCX (Max size: 5MB)
                   </p>
                 </div>
-                                
+
                 {/* Personal Information */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
@@ -292,7 +292,7 @@ export default function EditProfilePage() {
                       required
                     />
                   </div>
-                  
+
                   <div>
                     <Label htmlFor="email">Email</Label>
                     <Input
@@ -344,7 +344,7 @@ export default function EditProfilePage() {
                     <Save className="w-4 h-4" />
                     {isSaving ? "Saving..." : "Save Changes"}
                   </Button>
-                  
+
                   <Link href="/dashboard">
                     <Button type="button" variant="outline">
                       Cancel
@@ -356,8 +356,7 @@ export default function EditProfilePage() {
           </Card>
         </div>
       </div>
-      
-      <Footer />
+
     </main>
   );
 }
