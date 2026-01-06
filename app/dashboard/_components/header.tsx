@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import { signOut, useSession } from "next-auth/react"
 import Image from "next/image"
+import { ThemeToggle } from "@/components/theme-toggle"
 
 export default function Header() {
     const [showDropdown, setShowDropdown] = useState(false)
@@ -61,6 +62,9 @@ export default function Header() {
                                 </span>
                             </Button>
                         </Link>
+                        <div className="hidden md:flex items-center gap-3">
+                            <ThemeToggle />
+                        </div>
                         <div className="relative" ref={dropdownRef}>
                             <Button
                                 variant="ghost"
