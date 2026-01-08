@@ -1,12 +1,22 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Menu, User, Briefcase, Building2, Bookmark, GraduationCap, Award, CreditCard, Sparkles } from "lucide-react";
+import {
+  Menu,
+  X,
+  User,
+  Briefcase,
+  Building2,
+  Bookmark,
+  GraduationCap,
+  Award,
+  CreditCard,
+  Sparkles,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { ThemeToggle } from "./theme-toggle";
 import { usePathname } from "next/navigation";
-import { useSession } from "next-auth/react";
 import {
   Sheet,
   SheetContent,
@@ -22,16 +32,21 @@ export default function Header() {
   const { data: session } = useSession();
   const isAuthenticated = !!session;
 
-  // Close mobile menu on route change
   useEffect(() => {
     setIsOpen(false);
   }, [pathname]);
 
   // Handle section scrolling
+  useEffect(() => {
+    document.body.style.overflow = isOpen ? "hidden" : "auto";
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, [isOpen]);
+
   const handleSectionClick = (hash: string) => {
     if (window.location.pathname === "/") {
-      const el = document.getElementById(hash);
-      el?.scrollIntoView({ behavior: "smooth" });
+      document.getElementById(hash)?.scrollIntoView({ behavior: "smooth" });
     } else {
       window.location.href = `/#${hash}`;
     }
@@ -49,6 +64,7 @@ export default function Header() {
 
   const renderLink = (link: typeof LINKS[number], mobile = false) => {
     const Icon = link.icon;
+
     const baseClasses = mobile
       ? "group w-full rounded-xl px-4 py-3.5 text-base font-medium text-left flex items-center gap-3 text-foreground/70 hover:text-foreground hover:bg-primary/10 transition-all duration-200"
       : "group relative px-3 py-2 text-sm font-medium text-foreground/70 hover:text-foreground flex items-center gap-2 transition-all duration-200 rounded-lg hover:bg-primary/5";
@@ -61,11 +77,8 @@ export default function Header() {
           className={baseClasses}
           onClick={() => mobile && setIsOpen(false)}
         >
-          {Icon && <Icon className="w-4 h-4 group-hover:scale-110 transition-transform duration-200" />}
+          {Icon && <Icon className="w-4 h-4" />}
           {link.name}
-          {!mobile && (
-            <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-primary to-primary/60 group-hover:w-full transition-all duration-300"></span>
-          )}
         </Link>
       );
     }
@@ -76,11 +89,8 @@ export default function Header() {
         className={baseClasses}
         onClick={() => handleSectionClick(link.hash!)}
       >
-        {Icon && <Icon className="w-4 h-4 group-hover:scale-110 transition-transform duration-200" />}
+        {Icon && <Icon className="w-4 h-4" />}
         {link.name}
-        {!mobile && (
-          <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-primary to-primary/60 group-hover:w-full transition-all duration-300"></span>
-        )}
       </button>
     );
   };
@@ -109,23 +119,32 @@ export default function Header() {
     return (
       <div className={wrapperClass}>
         <Link href="/company-signup" className={mobile ? "w-full" : ""}>
-          <Button className={`${mobile ? "w-full justify-center" : "justify-center"}`} variant="outline">
+          <Button
+            className={mobile ? "w-full justify-center" : "justify-center"}
+            variant="outline"
+          >
             <Building2 className="w-4 h-4 mr-1.5" />
-            {mobile ? "For Companies" : "Companies"}
+            Companies
           </Button>
         </Link>
 
         <Link href="/login" className={mobile ? "w-full" : ""}>
-          <Button className={`${mobile ? "w-full justify-center" : "justify-center"}`} variant="outline">
+          <Button
+            className={mobile ? "w-full justify-center" : "justify-center"}
+            variant="outline"
+          >
             <User className="w-4 h-4 mr-1.5" />
-            {mobile ? "Login" : "Login"}
+            Login
           </Button>
         </Link>
 
         <Link href="/signup" className={mobile ? "w-full" : ""}>
           <Button className={`${mobile ? "w-full justify-center" : "justify-center"} glassmorphic-button-primary shadow-lg hover:shadow-xl transition-all hover:scale-105`}>
+          <Button
+            className={`${mobile ? "w-full" : ""} glassmorphic-button-primary`}
+          >
             <Sparkles className="w-4 h-4 mr-1.5" />
-            {mobile ? "Sign Up" : "Join"}
+            Sign Up
           </Button>
         </Link>
       </div>
@@ -214,5 +233,44 @@ export default function Header() {
         </Sheet>
       </nav>
     </header>
+    <>
+      <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur">
+        <div className="container mx-auto flex h-16 items-center justify-between px-4">
+          <Link href="/" className="flex items-center gap-2 font-bold">
+            <div className="h-8 w-8 rounded-lg bg-primary text-primary-foreground flex items-center justify-center">
+              C
+            </div>
+            CareerHub
+          </Link>
+
+          <nav className="hidden md:flex items-center gap-1">
+            {LINKS.map((l) => renderLink(l))}
+          </nav>
+
+          <div className="hidden md:flex items-center gap-2">
+            <ThemeToggle />
+            {renderCTA()}
+          </div>
+
+          <button
+            className="md:hidden p-2"
+            onClick={() => setIsOpen(!isOpen)}
+          >
+            {isOpen ? <X /> : <Menu />}
+          </button>
+        </div>
+      </header>
+
+      {isOpen && (
+        <div className="fixed inset-0 z-40 bg-black/30 md:hidden">
+          <div className="fixed right-0 top-0 h-full w-80 bg-background p-4">
+            <div className="space-y-2">
+              {LINKS.map((l) => renderLink(l, true))}
+            </div>
+            <div className="mt-6">{renderCTA(true)}</div>
+          </div>
+        </div>
+      )}
+    </>
   );
 }
